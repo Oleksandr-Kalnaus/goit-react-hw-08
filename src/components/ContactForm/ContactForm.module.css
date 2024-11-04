@@ -1,0 +1,28 @@
+.form {
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 320px;
+}
+
+.name {
+  font-size: 20px;
+}
+.field {
+  padding: 8px 12px;
+}
+
+.error {
+  color: red;
+}
+
+.addBtn {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.icon {
+  margin-right: 10px;
+}

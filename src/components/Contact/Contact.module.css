@@ -1,0 +1,17 @@
+.contactBox {
+  display: flex;
+  gap: 20px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactText {
+  margin: 0;
+}
+
+.icon {
+  margin-right: 5px;
+}
