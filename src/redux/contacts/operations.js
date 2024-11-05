@@ -42,16 +42,15 @@ export const deleteContact = createAsyncThunk(
   }
 );
 
-// функуція редагування контакту - поки не привязана
-// export const editContact = createAsyncThunk(
-//   "contacts/editContact",
-//   async (contactId, thunkAPI) => {
-//     try {
-//       await axios.patch(`/contacts/${contactId}`);
-//       return contactId;
-//     } catch (error) {
-//       console.error(error);
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const editContact = createAsyncThunk(
+  "contacts/editContact",
+  async ({ contactId, updatedData }, thunkAPI) => {
+    try {
+      const response = await axios.patch(`/contacts/${contactId}`, updatedData);
+      return response.data;
+    } catch (error) {
+      console.error("Edit Contact Error:", error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
