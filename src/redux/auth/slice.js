@@ -1,7 +1,6 @@
-initialState: {
-  user: { name: null, email: null },
-  token: null,
-  isLoggedIn: false,
-  isRefreshing: false,
-};
-
+// initialState: {
+//   user: { name: null, email: null },
+//   token: null,
+//   isLoggedIn: false,
+//   isRefreshing: false,
+// };
