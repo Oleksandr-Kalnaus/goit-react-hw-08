@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = "https://671ebd2b1dfc429919830872.mockapi.io";
+axios.defaults.baseURL = "https://connections-api.goit.global/";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
@@ -41,3 +41,17 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
+
+// функуція редагування контакту - поки не привязана
+// export const editContact = createAsyncThunk(
+//   "contacts/editContact",
+//   async (contactId, thunkAPI) => {
+//     try {
+//       await axios.patch(`/contacts/${contactId}`);
+//       return contactId;
+//     } catch (error) {
+//       console.error(error);
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
