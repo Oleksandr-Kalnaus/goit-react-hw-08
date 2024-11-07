@@ -1,0 +1,14 @@
+.authNav {
+  display: flex;
+  gap: 15px;
+}
+
+.authNav a {
+  text-decoration: none;
+  color: #333;
+}
+
+.authNav a.active {
+  font-weight: bold;
+  color: #007bff;
+}

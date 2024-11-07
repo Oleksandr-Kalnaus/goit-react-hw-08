@@ -54,7 +54,7 @@ const ContactForm = () => {
           id={nameFieldId}
           placeholder="Name Surname"
         />
-        <ErrorMessage className={styles.error} name="name" component="span" />
+        <ErrorMessage className={styles.error} name="name" component="div" />
         <label htmlFor={numberFieldId} className={styles.name}>
           Number
         </label>
@@ -65,7 +65,7 @@ const ContactForm = () => {
           id={numberFieldId}
           placeholder="XXX-XX-XX"
         />
-        <ErrorMessage className={styles.error} name="number" component="span" />
+        <ErrorMessage className={styles.error} name="number" component="div" />
         <button type="submit" className={styles.addBtn}>
           <IoPersonAddSharp className={styles.icon} />
           Add contact

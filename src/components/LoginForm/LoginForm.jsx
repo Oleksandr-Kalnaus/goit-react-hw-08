@@ -9,11 +9,13 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   password: Yup.string()
-    .min(8, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+    .min(8, "Password must be at least 8 characters")
+    .max(50, "Password cannot exceed 50 characters")
+    .required("Password is required"),
 });
 
 const LoginForm = () => {
@@ -34,16 +36,16 @@ const LoginForm = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <label>
-              Email:
-              <Field type="email" name="email" />
-              <ErrorMessage name="email" component="div" />
-            </label>
-            <label>
-              Password:
-              <Field type="password" name="password" />
-              <ErrorMessage name="password" component="div" />
-            </label>
+            <div>
+              <label htmlFor="email">Email:</label>
+              <Field type="email" name="email" id="email" />
+              <ErrorMessage name="email" component="div" className="error" />
+            </div>
+            <div>
+              <label htmlFor="password">Password:</label>
+              <Field type="password" name="password" id="password" />
+              <ErrorMessage name="password" component="div" className="error" />
+            </div>
             <button type="submit" disabled={isSubmitting}>
               Submit
             </button>

@@ -1,3 +1,4 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { register, login, logout, refreshUser } from "./operations";
 
 const handlePending = (state) => {
@@ -10,16 +11,8 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-export const selectFilteredContacts = createSelector(
-  [(state) => state.contacts.items, selectNameFilter],
-  (contacts, filter) =>
-    contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase().trim())
-    )
-);
-
-const contactsSlice = createSlice({
-  name: "contacts",
+const authSlice = createSlice({
+  name: "users",
   initialState: {
     user: { name: null, email: null },
     token: null,
