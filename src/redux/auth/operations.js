@@ -13,48 +13,27 @@ const clearAuthHeader = () => {
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (newUser, thunkAPI) => {
+  async (newUserData, thunkAPI) => {
     try {
-      const response = await axios.post("/users/signup", newUser);
-      setAuthHeader(response.data.token);
-      return response.data;
+      console.log("Registering user with data:", newUserData);
+      const { data } = await axios.post("/users/signup", newUserData);
+      setAuthHeader(data.token);
+      return data;
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.message;
-      console.error("Registration Error:", errorMessage);
-      if (error.response?.data) {
-        console.error("Error Details:", error.response.data);
-      }
-      return thunkAPI.rejectWithValue(errorMessage);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-// export const register = createAsyncThunk(
-//   "auth/register",
-//   async (newUser, thunkAPI) => {
-//     try {
-//       const response = await axios.post("/users/signup", newUser);
-//       setAuthHeader(response.data.token);
-//       return response.data;
-//     } catch (error) {
-//       const errorMessage = error.response?.data?.message || error.message;
-//       console.error("Registration Error:", errorMessage);
-//       return thunkAPI.rejectWithValue(errorMessage);
-//     }
-//   }
-// );
-
 export const login = createAsyncThunk(
   "auth/login",
-  async (credentials, thunkAPI) => {
+  async (userData, thunkAPI) => {
     try {
-      const response = await axios.post("/users/login", credentials);
-      setAuthHeader(response.data.token);
-      return response.data;
+      const { data } = await axios.post("/users/login", userData);
+      setAuthHeader(data.token);
+      return data;
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.message;
-      console.error("Login Error:", errorMessage);
-      return thunkAPI.rejectWithValue(errorMessage);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -64,9 +43,7 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     await axios.post("/users/logout");
     clearAuthHeader();
   } catch (error) {
-    const errorMessage = error.response?.data?.message || error.message;
-    console.error("Logout Error:", errorMessage);
-    return thunkAPI.rejectWithValue(errorMessage);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -77,17 +54,14 @@ export const refreshUser = createAsyncThunk(
     const persistedToken = state.auth.token;
 
     if (!persistedToken) {
-      return thunkAPI.rejectWithValue("Unable to fetch user. No token found.");
+      return thunkAPI.rejectWithValue("Unable to fetch user");
     }
-
     try {
       setAuthHeader(persistedToken);
-      const response = await axios.get("/users/current");
-      return response.data;
+      const { data } = await axios.get("/users/current");
+      return data;
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.message;
-      console.error("Refresh User Error:", errorMessage);
-      return thunkAPI.rejectWithValue(errorMessage);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

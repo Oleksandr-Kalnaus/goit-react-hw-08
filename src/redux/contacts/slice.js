@@ -17,10 +17,14 @@ const handleRejected = (state, action) => {
 
 export const selectFilteredContacts = createSelector(
   [(state) => state.contacts.items, selectNameFilter],
-  (contacts, filter) =>
-    contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase().trim())
-    )
+  (contacts, filter) => {
+    const normalizedFilter = filter.toLowerCase().trim();
+    return contacts.filter(
+      (contact) =>
+        contact.name.toLowerCase().includes(normalizedFilter) ||
+        contact.number.includes(normalizedFilter)
+    );
+  }
 );
 
 const contactsSlice = createSlice({

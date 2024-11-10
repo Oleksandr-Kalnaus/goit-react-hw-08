@@ -1,0 +1,50 @@
+.appBarBox {
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: rgb(39, 39, 236);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.appBarBox a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.appBarBox a:hover {
+  color: #ffdd57;
+}
+
+.Navigation {
+  display: flex;
+  gap: 20px;
+}
+
+.UserMenu,
+.AuthMenu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.UserMenu button,
+.AuthMenu button {
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.UserMenu button:hover,
+.AuthMenu button:hover {
+  background-color: #ffdd57;
+}

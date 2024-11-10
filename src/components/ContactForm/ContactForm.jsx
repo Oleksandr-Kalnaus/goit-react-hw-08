@@ -3,7 +3,7 @@ import { useId } from "react";
 import * as Yup from "yup";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contacts/operations";
+import { addContact, editContact } from "../../redux/contacts/operations";
 import styles from "./ContactForm.module.css";
 
 const initialValues = {
@@ -21,19 +21,23 @@ const validationSchema = Yup.object({
     .required("Field number is required"),
 });
 
-const ContactForm = () => {
+const ContactForm = ({ onEdit, contact }) => {
   const nameFieldId = useId();
   const numberFieldId = useId();
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    event.preventDefault();
     const newContact = {
       name: values.name,
       number: values.number,
     };
 
-    dispatch(addContact(newContact));
+    if (onEdit) {
+      dispatch(editContact({ ...newContact, id: contact.id }));
+    } else {
+      dispatch(addContact(newContact));
+    }
+
     actions.resetForm();
   };
 
@@ -68,7 +72,7 @@ const ContactForm = () => {
         <ErrorMessage className={styles.error} name="number" component="div" />
         <button type="submit" className={styles.addBtn}>
           <IoPersonAddSharp className={styles.icon} />
-          Add contact
+          {onEdit ? "Edit contact" : "Add contact"}
         </button>
       </Form>
     </Formik>

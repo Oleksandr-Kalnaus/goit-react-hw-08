@@ -1,6 +1,16 @@
 .contactBox {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  background-color: #2a2a2a;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contactBox:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .contact {
@@ -10,8 +20,63 @@
 
 .contactText {
   margin: 0;
+  font-size: 16px;
+  color: #ffd700;
 }
 
 .icon {
-  margin-right: 5px;
+  margin-right: 8px;
+  color: #ffd700;
+}
+
+.btnBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delBtn,
+.editBtn {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100px;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  color: white;
+  border: none;
+}
+
+.delBtn {
+  background-color: #e74c3c;
+}
+
+.editBtn {
+  background-color: #2ecc71;
+}
+
+.delBtn:hover {
+  background-color: #c0392b;
+}
+
+.editBtn:hover {
+  background-color: #27ae60;
+}
+
+.delBtn:focus,
+.editBtn:focus {
+  outline: none;
+}
+
+.delBtn:active,
+.editBtn:active {
+  transform: scale(0.98);
+}
+
+.icon {
+  margin-right: 8px;
+  color: white;
 }

@@ -5,10 +5,8 @@
 
 .authNav a {
   text-decoration: none;
-  color: #333;
 }
 
 .authNav a.active {
   font-weight: bold;
-  color: #007bff;
 }

@@ -2,6 +2,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/auth/operations";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import css from "./LoginForm.module.css";
 
 const initialValues = {
   email: "",
@@ -18,41 +21,78 @@ const validationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const LoginForm = () => {
+const LoginForm = ({ onSuccess }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (values, actions) => {
-    dispatch(login(values));
-    actions.resetForm();
+  const handleSubmit = async (values, actions) => {
+    try {
+      const result = await dispatch(login(values));
+      if (result.meta.requestStatus === "fulfilled") {
+        toast.success("Login successful!");
+        onSuccess();
+        actions.resetForm();
+        navigate("/");
+      } else {
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   return (
-    <>
-      <h1>Login</h1>
+    <div className={css.loginForm}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <div>
-              <label htmlFor="email">Email:</label>
-              <Field type="email" name="email" id="email" />
-              <ErrorMessage name="email" component="div" className="error" />
+          <Form className={css.form}>
+            <div className={css.formGroup}>
+              <label htmlFor="email" className={css.label}>
+                Email:
+              </label>
+              <Field
+                type="email"
+                name="email"
+                id="email"
+                className={css.field}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className={css.error}
+              />
             </div>
-            <div>
-              <label htmlFor="password">Password:</label>
-              <Field type="password" name="password" id="password" />
-              <ErrorMessage name="password" component="div" className="error" />
+            <div className={css.formGroup}>
+              <label htmlFor="password" className={css.label}>
+                Password:
+              </label>
+              <Field
+                type="password"
+                name="password"
+                id="password"
+                className={css.field}
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className={css.error}
+              />
             </div>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={css.button}
+            >
+              Sign In
             </button>
           </Form>
         )}
       </Formik>
-    </>
+      <Toaster />
+    </div>
   );
 };
 
