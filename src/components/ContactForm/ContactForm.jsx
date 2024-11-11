@@ -4,12 +4,7 @@ import * as Yup from "yup";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { addContact, editContact } from "../../redux/contacts/operations";
-import styles from "./ContactForm.module.css";
-
-const initialValues = {
-  name: "",
-  number: "",
-};
+import css from "./ContactForm.module.css";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -21,24 +16,21 @@ const validationSchema = Yup.object({
     .required("Field number is required"),
 });
 
-const ContactForm = ({ onEdit, contact }) => {
+const ContactForm = ({ onEdit, contact, onClose }) => {
   const nameFieldId = useId();
   const numberFieldId = useId();
   const dispatch = useDispatch();
 
+  const initialValues = contact || { name: "", number: "" };
+
   const handleSubmit = (values, actions) => {
-    const newContact = {
-      name: values.name,
-      number: values.number,
-    };
-
     if (onEdit) {
-      dispatch(editContact({ ...newContact, id: contact.id }));
+      dispatch(editContact({ ...values, id: contact.id }));
     } else {
-      dispatch(addContact(newContact));
+      dispatch(addContact(values));
     }
-
     actions.resetForm();
+    onClose();
   };
 
   return (
@@ -46,33 +38,39 @@ const ContactForm = ({ onEdit, contact }) => {
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
+      enableReinitialize
     >
-      <Form className={styles.form}>
-        <label htmlFor={nameFieldId} className={styles.name}>
+      <Form className={css.form}>
+        <label htmlFor={nameFieldId} className={css.name}>
           Name
         </label>
         <Field
-          className={styles.field}
+          className={css.field}
           type="text"
           name="name"
           id={nameFieldId}
           placeholder="Name Surname"
         />
-        <ErrorMessage className={styles.error} name="name" component="div" />
-        <label htmlFor={numberFieldId} className={styles.name}>
+        <ErrorMessage className={css.error} name="name" component="div" />
+
+        <label htmlFor={numberFieldId} className={css.name}>
           Number
         </label>
         <Field
-          className={styles.field}
+          className={css.field}
           type="phone"
           name="number"
           id={numberFieldId}
           placeholder="XXX-XX-XX"
         />
-        <ErrorMessage className={styles.error} name="number" component="div" />
-        <button type="submit" className={styles.addBtn}>
-          <IoPersonAddSharp className={styles.icon} />
+        <ErrorMessage className={css.error} name="number" component="div" />
+
+        <button type="submit" className={css.addBtn}>
+          <IoPersonAddSharp className={css.icon} />
           {onEdit ? "Edit contact" : "Add contact"}
+        </button>
+        <button type="button" onClick={onClose} className={css.cancelBtn}>
+          Cancel
         </button>
       </Form>
     </Formik>

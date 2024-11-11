@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ContactList from "./../../components/ContactList/ContactList";
-import ContactForm from "./../../components/ContactForm/ContactForm";
-import SearchBox from "./../../components/SearchBox/SearchBox";
+import ContactList from "../../components/ContactList/ContactList";
+import ContactForm from "../../components/ContactForm/ContactForm";
+import SearchBox from "../../components/SearchBox/SearchBox";
 import css from "./ContactsPage.module.css";
 
 function ContactsPage() {
@@ -23,19 +23,17 @@ function ContactsPage() {
 
   const closeForm = () => {
     setIsFormVisible(false);
+    setContactToEdit(null);
   };
 
   return (
     <div className={css.contactPage}>
-      {isFormVisible ? (
-        <button onClick={closeForm} className={css.openCloseBtn}>
-          Close form
-        </button>
-      ) : (
-        <button onClick={handleCreateNewContact} className={css.openCloseBtn}>
-          Open form
-        </button>
-      )}
+      <button
+        onClick={isFormVisible ? closeForm : handleCreateNewContact}
+        className={css.openCloseBtn}
+      >
+        {isFormVisible ? "Close form" : "Open form"}
+      </button>
 
       {isFormVisible && (
         <ContactForm

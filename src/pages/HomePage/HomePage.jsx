@@ -15,7 +15,6 @@ function HomePage() {
         <div className={css.noname}>Please sign in or create an account</div>
       )}
       <div>
-        {" "}
         <p className={css.paragraph}>
           Here's just part of what you can do in this app:
         </p>

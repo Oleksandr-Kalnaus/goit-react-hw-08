@@ -32,7 +32,7 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      const result = await dispatch(register(values));
+      const result = await dispatch(register(values)).unwrap();
       if (result.meta.requestStatus === "fulfilled") {
         toast.success("Registration successful!");
         actions.resetForm();

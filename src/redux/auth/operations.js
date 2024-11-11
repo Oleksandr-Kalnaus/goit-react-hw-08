@@ -15,7 +15,6 @@ export const register = createAsyncThunk(
   "auth/register",
   async (newUserData, thunkAPI) => {
     try {
-      console.log("Registering user with data:", newUserData);
       const { data } = await axios.post("/users/signup", newUserData);
       setAuthHeader(data.token);
       return data;

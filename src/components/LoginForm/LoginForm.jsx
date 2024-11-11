@@ -27,7 +27,7 @@ const LoginForm = ({ onSuccess }) => {
 
   const handleSubmit = async (values, actions) => {
     try {
-      const result = await dispatch(login(values));
+      const result = await dispatch(login(values)).unwrap();
       if (result.meta.requestStatus === "fulfilled") {
         toast.success("Login successful!");
         onSuccess();
