@@ -25,7 +25,13 @@ const ContactForm = ({ onEdit, contact, onClose }) => {
 
   const handleSubmit = (values, actions) => {
     if (onEdit) {
-      dispatch(editContact({ ...values, id: contact.id }));
+      const { id, ...updatedData } = values;
+      dispatch(
+        editContact({
+          contactId: id,
+          updatedData,
+        })
+      );
     } else {
       dispatch(addContact(values));
     }

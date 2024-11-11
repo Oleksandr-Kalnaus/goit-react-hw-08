@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ContactList from "../../components/ContactList/ContactList";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import css from "./ContactsPage.module.css";
+import { useDispatch } from "react-redux";
+import { fetchContacts } from "../../redux/contacts/operations";
 
 function ContactsPage() {
   const [isEdit, setIsEdit] = useState(false);
   const [contactToEdit, setContactToEdit] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const formRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const handleEditContact = (contact) => {
     setContactToEdit(contact);
     setIsEdit(true);
     setIsFormVisible(true);
+
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const handleCreateNewContact = () => {
@@ -36,11 +48,13 @@ function ContactsPage() {
       </button>
 
       {isFormVisible && (
-        <ContactForm
-          onEdit={isEdit}
-          contact={contactToEdit}
-          onClose={closeForm}
-        />
+        <div ref={formRef}>
+          <ContactForm
+            onEdit={isEdit}
+            contact={contactToEdit}
+            onClose={closeForm}
+          />
+        </div>
       )}
 
       <SearchBox />

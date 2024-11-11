@@ -57,7 +57,9 @@ const contactsSlice = createSlice({
       .addCase(editContact.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.items.patch(action.payload);
+        state.items = state.items.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        );
       })
       .addCase(editContact.rejected, handleRejected)
 

@@ -3,8 +3,9 @@ import { useState } from "react";
 import Contact from "../Contact/Contact";
 import { deleteContact } from "../../redux/contacts/operations";
 import ModalWrapper from "../ModalWrapper/ModalWrapper";
-import css from "./ContactList.module.css";
 import { selectFilteredContacts } from "../../redux/contacts/slice";
+import toast, { Toaster } from "react-hot-toast";
+import css from "./ContactList.module.css";
 
 const ContactList = ({ onEditContact }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,14 @@ const ContactList = ({ onEditContact }) => {
 
   const confirmDeleteContact = () => {
     if (contactToDelete) {
-      dispatch(deleteContact(contactToDelete));
+      dispatch(deleteContact(contactToDelete))
+        .unwrap()
+        .then(() => {
+          toast.success("Contact successfully deleted!");
+        })
+        .catch((error) => {
+          toast.error(`Failed to delete contact: ${error.message}`);
+        });
       closeDeleteModal();
     }
   };
@@ -69,6 +77,7 @@ const ContactList = ({ onEditContact }) => {
           </div>
         </ModalWrapper>
       )}
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

@@ -65,12 +65,7 @@ const RegistrationForm = () => {
                 placeholder="Your name"
                 className={css.field}
               />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="error"
-                className={css.error}
-              />
+              <ErrorMessage name="name" component="div" className={css.error} />
             </div>
             <div className={css.formGroup}>
               <label htmlFor="email" className={css.label}>
@@ -86,7 +81,6 @@ const RegistrationForm = () => {
               <ErrorMessage
                 name="email"
                 component="div"
-                className="error"
                 className={css.error}
               />
             </div>
@@ -104,7 +98,6 @@ const RegistrationForm = () => {
               <ErrorMessage
                 name="password"
                 component="div"
-                className="error"
                 className={css.error}
               />
             </div>
